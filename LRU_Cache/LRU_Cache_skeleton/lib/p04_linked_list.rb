@@ -54,7 +54,7 @@ class LinkedList
     curr_node = first
     while curr_node.key != key
       curr_node = curr_node.next
-      if curr_node == tail && curr_node.key != key
+      if curr_node == tail || curr_node == nil # && curr_node.key != key
         return nil
       end
     end
@@ -107,6 +107,7 @@ class LinkedList
   end
 
   def each(&prc)
+    prc ||= Proc.new { |a,b| a <=> b }
     vals = []
     curr_node = first
     while curr_node != @tail
@@ -120,7 +121,7 @@ class LinkedList
   end
 
   # uncomment when you have `each` working and `Enumerable` included
-  # def to_s
-  #   inject([]) { |acc, link| acc << "[#{link.key}, #{link.val}]" }.join(", ")
-  # end
+  def to_s
+    inject([]) { |acc, link| acc << "[#{link.key}, #{link.val}]" }.join(", ")
+  end
 end
